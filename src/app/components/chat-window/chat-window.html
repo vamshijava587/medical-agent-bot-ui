@@ -1,4 +1,4 @@
-<div class="chat-window">
+<div class="chat-window" #chatWindow (scroll)="onScroll()">
   @if (messages().length === 0) {
     <app-welcome-screen (promptSelected)="promptSelected.emit($event)" />
   } @else {
@@ -8,5 +8,18 @@
       }
       <div #scrollAnchor class="chat-window__anchor"></div>
     </div>
+
+    @if (showScrollToBottom()) {
+      <button
+        class="chat-window__scroll-to-bottom"
+        type="button"
+        aria-label="Scroll to last message"
+        (click)="scrollToBottom()"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    }
   }
 </div>

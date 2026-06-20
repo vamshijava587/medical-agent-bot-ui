@@ -1,4 +1,12 @@
+:host {
+  display: block;
+  height: 100%;
+  min-height: 0;
+}
+
 .chat-window {
+  position: relative;
+  height: 100%;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -6,6 +14,27 @@
   flex-direction: column;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+
+.chat-window::-webkit-scrollbar {
+  width: 10px;
+}
+
+.chat-window::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-window::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.chat-window::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
 }
 
 .chat-window__list {
@@ -27,4 +56,30 @@
 .chat-window__anchor {
   height: 1px;
   flex-shrink: 0;
+}
+
+.chat-window__scroll-to-bottom {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.64);
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+  transition: transform 0.16s ease, background 0.16s ease;
+}
+
+.chat-window__scroll-to-bottom:hover {
+  transform: translateY(-1px);
+  background: rgba(0, 0, 0, 0.78);
+}
+
+.chat-window__scroll-to-bottom svg {
+  display: block;
 }

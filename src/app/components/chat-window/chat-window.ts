@@ -1,10 +1,12 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   effect,
   input,
   output,
+  signal,
   viewChild,
 } from '@angular/core';
 import { ChatMessage } from '../../core/models/chat.model';
@@ -18,10 +20,12 @@ import { WelcomeScreen } from '../welcome-screen/welcome-screen';
   styleUrl: './chat-window.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatWindow {
+export class ChatWindow implements AfterViewInit {
   readonly messages = input<ChatMessage[]>([]);
   readonly promptSelected = output<string>();
+  readonly showScrollToBottom = signal(false);
 
+  private readonly chatWindow = viewChild<ElementRef<HTMLDivElement>>('chatWindow');
   private readonly scrollAnchor = viewChild<ElementRef<HTMLDivElement>>('scrollAnchor');
 
   constructor() {
@@ -35,9 +39,28 @@ export class ChatWindow {
     });
   }
 
-  private scrollToBottom(): void {
+  ngAfterViewInit(): void {
+    this.updateScrollButtonState();
+  }
+
+  onScroll(): void {
+    this.updateScrollButtonState();
+  }
+
+  scrollToBottom(): void {
     queueMicrotask(() => {
       this.scrollAnchor()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      this.showScrollToBottom.set(false);
     });
+  }
+
+  private updateScrollButtonState(): void {
+    const container = this.chatWindow()?.nativeElement;
+    if (!container) {
+      return;
+    }
+
+    const isAtBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 16;
+    this.showScrollToBottom.set(!isAtBottom);
   }
 }
