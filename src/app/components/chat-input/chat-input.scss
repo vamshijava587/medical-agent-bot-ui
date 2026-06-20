@@ -101,3 +101,24 @@
   color: var(--ink-faint);
   text-align: center;
 }
+
+/* Important hint styling with red warning icon */
+.composer__hint--important {
+   margin-top: 9px;
+  font-size: 11px;
+  color: var(--ink-faint);
+  text-align: center;
+  color: #b82b2b;
+}
+
+.composer__hint-icon {
+  color: #b82b2b;
+  font-size: 18px;
+  line-height: 1;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.composer__hint--important strong {
+  font-weight: 900;
+}
