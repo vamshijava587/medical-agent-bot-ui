@@ -31,15 +31,16 @@ export class ChatService {
 
   private activeController: AbortController | null = null;
 
-  send(message: string, handlers: StreamHandlers, model: ModelType = 'OPENAI'): void {
+  send(message: string, handlers: StreamHandlers, model?: ModelType): void {
     this.activeController = new AbortController();
+    const chosenModel: ModelType = (model ?? (environment.chatModel as ModelType));
 
     fetch(`${environment.apiBaseUrl}/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'text/event-stream',
-        'X-Chat-Model': model,
+        'X-Chat-Model': chosenModel,
       },
       body: JSON.stringify({ message }),
       signal: this.activeController.signal,
