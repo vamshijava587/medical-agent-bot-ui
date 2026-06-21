@@ -14,10 +14,7 @@
     <svg viewBox="0 0 320 48" preserveAspectRatio="none">
       <path
         class="vitals__trace-line"
-        d="M0,24 L24,24 L34,24 L42,8 L50,40 L58,4 L66,24 L80,24 L96,24
-           L104,24 L112,8 L120,40 L128,4 L136,24 L150,24
-           L166,24 L174,24 L182,8 L190,40 L198,4 L206,24 L220,24
-           L236,24 L244,24 L252,8 L260,40 L268,4 L276,24 L290,24 L320,24"
+        [attr.d]="connected() ? svgPath() : flatPath()"
         fill="none"
       />
     </svg>

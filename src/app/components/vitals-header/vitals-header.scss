@@ -103,25 +103,18 @@
 .vitals__trace-line {
   stroke: var(--ink-faint);
   stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 320;
-  stroke-dashoffset: 320;
-  animation: trace-sweep 5s linear infinite;
-  transition: stroke 0.4s ease;
-}
+  /* use sharp joins and flat endcaps to keep spike tips crisp */
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  transition: stroke 0.2s ease, filter 0.2s ease;
+ }
 
 .vitals__trace--active .vitals__trace-line {
   stroke: var(--teal);
   filter: drop-shadow(0 0 6px var(--teal-dim));
-  animation-duration: 1.6s;
 }
 
-@keyframes trace-sweep {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
+
 
 .vitals__status {
   display: flex;
@@ -134,6 +127,8 @@
   flex-shrink: 0;
   text-transform: uppercase;
 }
+
+
 
 .vitals__status-dot {
   width: 7px;
