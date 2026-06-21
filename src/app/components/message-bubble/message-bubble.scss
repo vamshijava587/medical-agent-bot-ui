@@ -71,7 +71,6 @@
   border-radius: var(--radius-md);
   font-size: 14.5px;
   line-height: 1.55;
-  white-space: pre-wrap;
   word-break: break-word;
 }
 
@@ -79,6 +78,7 @@
   background: linear-gradient(155deg, var(--violet), #5848d6);
   color: #fff;
   border-top-right-radius: 6px;
+  white-space: pre-wrap; // plain user text has no markup of its own to carry spacing
 }
 
 .bubble--assistant .bubble__text {
@@ -107,8 +107,35 @@
     padding-left: 20px;
   }
 
+  ::ng-deep ol {
+    list-style: decimal;
+  }
+
+  ::ng-deep ul {
+    list-style: disc;
+  }
+
   ::ng-deep li {
-    margin-bottom: 4px;
+    margin: 0 0 4px;
+    padding: 0;
+  }
+
+  ::ng-deep li:last-child {
+    margin-bottom: 0;
+  }
+
+  // marked occasionally wraps list-item content in its own <p> (a "loose"
+  // list, e.g. when items are separated by blank lines). Without this,
+  // that inner <p> would carry its own 10px bottom margin on top of the
+  // <li>'s margin, stacking into the large gaps seen between bullets.
+  ::ng-deep li > p {
+    margin: 0;
+    display: inline;
+  }
+
+  ::ng-deep li > ul,
+  ::ng-deep li > ol {
+    margin-top: 4px;
   }
 
   ::ng-deep code {
@@ -120,16 +147,79 @@
     border-radius: 5px;
   }
 
+  ::ng-deep pre {
+    margin: 0 0 10px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--void);
+    border: 1px solid var(--hairline);
+    overflow-x: auto;
+
+    code {
+      background: transparent;
+      padding: 0;
+      color: var(--ink);
+    }
+  }
+
   ::ng-deep strong {
     color: #fff;
     font-weight: 600;
   }
 
+  ::ng-deep em {
+    color: var(--ink-soft);
+  }
+
+  ::ng-deep h1,
+  ::ng-deep h2,
   ::ng-deep h3,
   ::ng-deep h4 {
     margin: 4px 0 8px;
     font-size: 15px;
     color: var(--ink);
+  }
+
+  ::ng-deep a {
+    color: var(--teal);
+    text-decoration: underline;
+    text-decoration-color: var(--teal-dim);
+
+    &:hover {
+      text-decoration-color: var(--teal);
+    }
+  }
+
+  ::ng-deep blockquote {
+    margin: 0 0 10px;
+    padding-left: 12px;
+    border-left: 2px solid var(--hairline-bright);
+    color: var(--ink-soft);
+  }
+
+  ::ng-deep hr {
+    margin: 12px 0;
+    border: none;
+    border-top: 1px solid var(--hairline);
+  }
+
+  ::ng-deep table {
+    margin: 0 0 10px;
+    border-collapse: collapse;
+    font-size: 13px;
+    width: 100%;
+  }
+
+  ::ng-deep th,
+  ::ng-deep td {
+    border: 1px solid var(--hairline);
+    padding: 6px 10px;
+    text-align: left;
+  }
+
+  ::ng-deep th {
+    color: var(--ink);
+    background: var(--panel);
   }
 }
 
