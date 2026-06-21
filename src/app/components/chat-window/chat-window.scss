@@ -87,48 +87,28 @@
   display: block;
 }
 
-/* Mobile: hide chat by default and show FAB toggle */
+/* Mobile: keep chat inline instead of a FAB overlay so it behaves consistently */
 @media (max-width: 767px) {
   .chat-window {
-    position: fixed;
+    position: relative;
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 100%;
-    z-index: 9998;
-    background: var(--background, #fff);
-    transform: translateY(100%);
-    transition: transform 210ms ease-in-out;
-    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12);
-  }
-
-  .chat-window.open {
-    transform: translateY(0);
-  }
-
-  .chat-toggle {
-    display: grid;
-    place-items: center;
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: #0069ff;
-    color: #fff;
-    border: none;
-    z-index: 9999;
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
-    cursor: pointer;
-  }
-
-  .chat-toggle svg {
+    height: auto;
+    z-index: 1;
+    background: var(--background, transparent);
     transform: none;
+    transition: none;
+    box-shadow: none;
+  }
+
+  /* Hide floating toggle; chat should remain visible inline */
+  .chat-toggle {
+    display: none;
   }
 }
 
-/* Hide toggle on larger screens */
+/* Keep toggle hidden on larger screens as well */
 @media (min-width: 768px) {
   .chat-toggle {
     display: none;
