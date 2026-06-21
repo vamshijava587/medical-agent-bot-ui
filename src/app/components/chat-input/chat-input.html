@@ -1,5 +1,5 @@
 <div class="composer">
-  @if (quickPrompts.length && !disabled()) {
+  @if (quickPrompts.length && !disabled() && showQuickPrompts() && !streaming()) {
     <div class="composer__prompts">
       @for (prompt of quickPrompts; track prompt) {
         <button type="button" class="composer__prompt-chip" (click)="useQuickPrompt(prompt)">

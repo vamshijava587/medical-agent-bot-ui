@@ -4,6 +4,7 @@ import {
   ElementRef,
   afterNextRender,
   effect,
+  computed,
   input,
   Injector,
   inject,
@@ -12,6 +13,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { SessionStore } from '../../core/services/session.store';
 
 @Component({
   selector: 'app-chat-input',
@@ -44,6 +46,10 @@ export class ChatInput {
   ];
 
   readonly quickPrompts = ChatInput.QUICK_PROMPTS;
+
+  private readonly store = inject(SessionStore);
+
+  readonly showQuickPrompts = computed(() => (this.store.activeMessages() ?? []).length === 0);
 
   constructor() {
     // Capture an injector instance and pass it to afterNextRender so the
