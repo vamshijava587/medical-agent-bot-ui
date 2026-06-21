@@ -50,6 +50,11 @@ export class VitalsHeader implements OnDestroy {
   private generateLiveTick() {
     this.tickCount++;
     const mid = 24;
+    // If disconnected, show a flatline (no ECG activity)
+    if (!this.connected()) {
+      this.dataPoints.set(Array(this.dataPoints().length).fill(mid));
+      return;
+    }
 
     // Determine phase based on a heartbeat cadence influenced by heartRate
     // Convert BPM to ticks per beat (approx): tickInterval ~90ms so ticksPerBeat = (60_000 / bpm) / 90
